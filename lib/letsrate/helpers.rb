@@ -10,7 +10,11 @@ module Helpers
     if klass.nil?
       avg = 0
     else
-      avg = klass.avg
+      if options[:rating]
+        avg = options[:rating]
+      else
+        avg = klass.avg
+      end
     end
 
     star = options[:star] || 5
