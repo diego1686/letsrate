@@ -16,10 +16,15 @@ module Helpers
     star = options[:star] || 5
 
     disable_after_rate = options[:disable_after_rate] || false
+    read_only = options[:read_only] || false
 
     readonly = false
-    if disable_after_rate
-      readonly = current_user.present? ? !rateable_obj.can_rate?(current_user.id, dimension) : true
+    if read_only
+      readonly = true
+    else 
+      if disable_after_rate
+        readonly = current_user.present? ? !rateable_obj.can_rate?(current_user.id, dimension) : true
+      end
     end
 
     content_tag :div, '', "data-dimension" => dimension, :class => "star", "data-rating" => avg,
